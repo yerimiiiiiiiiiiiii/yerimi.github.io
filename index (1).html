@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문예대 | YE DAE MOON</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron:wght@400;700;900&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff0080;
+            --neon-cyan: #00ffff;
+            --neon-purple: #b026ff;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #05050a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Animated background grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(255,0,128,0.05) 1px, transparent 1px),
+                linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Glowing particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeInScale 1.2s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .name-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink);
+            animation: neonFlicker 3s infinite alternate;
+            position: relative;
+        }
+
+        @keyframes neonFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 10px var(--neon-pink),
+                    0 0 20px var(--neon-pink),
+                    0 0 40px var(--neon-pink),
+                    0 0 80px var(--neon-pink);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+
+        .name-title::before {
+            content: '문예대';
+            position: absolute;
+            left: 2px;
+            top: 0;
+            color: var(--neon-cyan);
+            overflow: hidden;
+            animation: glitch1 2.5s infinite;
+        }
+
+        .name-title::after {
+            content: '문예대';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            color: var(--neon-purple);
+            overflow: hidden;
+            animation: glitch2 2.5s infinite;
+        }
+
+        @keyframes glitch1 {
+            0% { clip-path: inset(40% 0 61% 0); }
+            20% { clip-path: inset(92% 0 1% 0); }
+            40% { clip-path: inset(43% 0 1% 0); }
+            60% { clip-path: inset(25% 0 58% 0); }
+            80% { clip-path: inset(54% 0 7% 0); }
+            100% { clip-path: inset(58% 0 43% 0); }
+        }
+
+        @keyframes glitch2 {
+            0% { clip-path: inset(65% 0 15% 0); }
+            20% { clip-path: inset(30% 0 65% 0); }
+            40% { clip-path: inset(80% 0 5% 0); }
+            60% { clip-path: inset(15% 0 80% 0); }
+            80% { clip-path: inset(50% 0 30% 0); }
+            100% { clip-path: inset(10% 0 85% 0); }
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--neon-cyan);
+            margin-top: 20px;
+            letter-spacing: 0.3em;
+            animation: slideUp 1s ease-out 0.3s backwards;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255,0,128,0.1), rgba(0,255,255,0.1));
+            border: 2px solid rgba(255,0,128,0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: cardAppear 0.6s ease-out backwards;
+            cursor: pointer;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.5s; }
+        .card:nth-child(2) { animation-delay: 0.7s; }
+        .card:nth-child(3) { animation-delay: 0.9s; }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255,0,128,0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 0 30px rgba(255,0,128,0.5),
+                0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding: 40px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            animation: fadeIn 1s ease-out 1.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            filter: blur(10px);
+        }
+
+        .social-link:hover {
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .social-link:hover::before {
+            opacity: 0.5;
+        }
+
+        /* Scanline effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
+            animation: scanlineMove 10s linear infinite;
+        }
+
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Custom cursor trail */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="grid-background"></div>
+    <div class="particles" id="particles"></div>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <!-- Hero section -->
+        <section class="hero">
+            <div class="glitch-wrapper">
+                <h1 class="name-title">문예대</h1>
+            </div>
+            <p class="subtitle">YE DAE MOON • 미래를 코딩하는 사람</p>
+        </section>
+
+        <!-- Content cards -->
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-icon">💫</div>
+                <h2 class="card-title">WHO AM I</h2>
+                <p class="card-text">
+                    디지털 세상의 무한한 가능성을 믿는 크리에이터.
+                    코드로 꿈을 현실로 만들고, 
+                    혁신으로 세상을 바꿔나가는 중입니다.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h2 class="card-title">WHAT I DO</h2>
+                <p class="card-text">
+                    끊임없이 배우고, 실험하고, 도전합니다.
+                    최첨단 기술과 창의적인 아이디어를 융합하여
+                    차별화된 가치를 창출합니다.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h2 class="card-title">MY VISION</h2>
+                <p class="card-text">
+                    기술로 사람들의 삶을 더 풍요롭게.
+                    불가능을 가능으로 만드는 것,
+                    그것이 저의 존재 이유입니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="social-links">
+                <a href="#" class="social-link" title="GitHub">💻</a>
+                <a href="#" class="social-link" title="LinkedIn">🔗</a>
+                <a href="#" class="social-link" title="Email">✉️</a>
+                <a href="#" class="social-link" title="Portfolio">🎨</a>
+            </div>
+            <p style="margin-top: 30px;">© 2026 YE DAE MOON • 모든 순간이 새로운 시작</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Custom cursor trail effect
+        const cursorTrail = document.createElement('div');
+        cursorTrail.className = 'cursor-trail';
+        document.body.appendChild(cursorTrail);
+
+        document.addEventListener('mousemove', (e) => {
+            cursorTrail.style.left = e.clientX - 10 + 'px';
+            cursorTrail.style.top = e.clientY - 10 + 'px';
+        });
+
+        // Add hover sound effect simulation (visual feedback)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderColor = 'var(--neon-cyan)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.borderColor = 'rgba(255,0,128,0.3)';
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.grid-background').style.transform = 
+                `perspective(500px) rotateX(60deg) translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
